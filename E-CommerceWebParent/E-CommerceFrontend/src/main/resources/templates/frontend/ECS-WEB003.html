@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Components</title>
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/form.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap.min.css}">
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.min.js}"></script>
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/bootstrap/js/bootstrap.min.js}"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+          integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body class="position-relative">
+<!--start header -->
+<th:block th:insert="~{/frontend/header::header}"/>
+<!-- End Header -->
+
+<!-- start Hero content -->
+<div class="container-fluid" data-offset="0" data-spy="scroll" data-target="#nav-bar">
+    <!-- Start Component -->
+    <div class="component" id="component">
+        <h2 class="text-center p-4">Components</h2>
+        <div class="d-md-none position-fixed bg-info text-light p-2 rounded" id="filter-open"
+             style="z-index: 9;right: 20px;top: 100px;">
+            <i class="fa-solid d-block fa-filter d-md-none fa-1x "></i>
+        </div>
+        <div class="clearfix mb-3">
+            <div class="float-left">
+                <form method="get" th:action="@{/search-keyword}">
+                    <div class="col d-flex">
+                        <input class="form-control d-inline-block rounded-0" name="searchKeyword"
+                               placeholder="Search..."
+                               type="search">
+                        <button class="rounded-0 btn btn-primary" role="button" type="submit"><i
+                                class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="pagination float-right">
+                <li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+                <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+                <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+                <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+                <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+                <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+                <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="d-md-block filter mb-3" id="filter">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="font-weight-light text-uppercase mb-0">filter</h5>
+                    <div class="" id="filter-close"><i
+                            class="fa-solid fa-x d-flex d-sm-block d-md-none text-secondary"></i></div>
+                </div>
+                <hr>
+                <form method="post" th:action="@{/filter}" th:object="${filter}">
+                    <div>
+                        <a class="fa-tab collapsed" data-toggle="collapse" href="#Brand">Brand</a>
+                        <div class="collapse mt-3" id="Brand">
+                            <div th:each="brand:${brandList}">
+                                <input class="ml-2" th:field="*{brandId}" th:id="${brand.brandName}"
+                                       th:value="${brand.id}"
+                                       type="checkbox">
+                                <label class="ml-2" th:for="${brand.brandName}">[[${brand.brandName}]]</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <a class="fa-tab  collapsed" data-toggle="collapse" href="#categories">Categories</a>
+
+                        <div class="collapse mt-3" id="categories">
+                            <div th:each="category:${categoryList}">
+                                <input class="ml-2" th:field="*{categoryId}" th:id="${category.categoryName}"
+                                       th:value="${category.id}" type="checkbox">
+                                <label class="ml-2"
+                                       th:for="${category.categoryName}">[[${category.categoryName}]]</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <a aria-controls="sub-categories" aria-expanded="false" class="fa-tab collapsed"
+                           data-target="#sub-categories" data-toggle="collapse"
+                           href="#sub-categories">Sub-Categories</a>
+                        <div class="collapse mt-3" id="sub-categories">
+                            <div th:each="sub:${subCategoryList}">
+                                <input class="ml-2" th:field="*{subCategoryId}" th:id="${sub.subCategoryName}"
+                                       th:value="${sub.id}"
+                                       type="checkbox">
+                                <label class="ml-2" th:for="${sub.subCategoryName}">[[${sub.subCategoryName}]]</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div>
+                        <a class="fa-tab collapsed" data-toggle="collapse" href="#Prices">Prices</a>
+                        <div class="collapse mt-3" id="Prices">
+                            <div><input id="AOVOC" type="checkbox"><label class="ml-2" for="AOVOC">AOVOC</label></div>
+                            <div><input id="ASUS" type="checkbox"><label class="ml-2" for="ASUS">ASUS</label></div>
+                            <div><input id="Samsung" type="checkbox"><label class="ml-2" for="Samsung">Samsung</label>
+                            </div>
+                            <div><input id="Sony" type="checkbox"><label class="ml-2" for="Sony">Sony</label></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <button class="btn btn-primary w-100 rounded-pill mb-2" type="submit">Apply filter</button>
+                    <a class="btn btn-info col rounded-pill text-white" th:href="@{/components}">Reset
+                    </a>
+                </form>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="">
+                        <div class="card-deck mr-0 flex-wrap align-items-start justify-content-start">
+                            <th:block th:each="p:${productList}">
+                                <div class="card p-4">
+                                    <a class="text-decoration-none text-dark" href="product_details.html">
+                                        <span class="item-discount" th:if="${p.discount.discountPercent != 0}">-[[${p.discount.discountPercent}]]%</span>
+                                        <div class="card-image">
+                                            <img alt="graphics card" class="card-img-top" th:src="@{${p.img1}}"
+                                                 title="graphics card">
+                                        </div>
+                                        <div class="card-body p-1">
+                                            <h5 class="card-title c-title-h">[[${p.productName}]]</h5>
+                                            <p class="card-text m-0 c-text-h">[[${p.productDescritpion}]]</p>
+                                            <div class="clearfix mt-1 c-currency-h">
+                                                <del class="float-left" th:if="${p.discount.discountPercent != 0}">
+                                                    $[[${p.discountedPrice}]]
+                                                </del>
+                                                <span class="float-right">$[[${p.price}]]</span></div>
+                                        </div>
+                                    </a>
+                                    <div class="clearfix">
+                                        <button class=" form__button add-to-cart-btn col" onclick="add_to_card()"
+                                                role="button"
+                                                type="button">Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Component -->
+</div>
+<!-- end hero content -->
+<!-- footer -->
+<th:block th:insert="~{/frontend/footer::footer}"/>
+<!-- End Footer -->
+<script th:src="@{/frontendStyle/js/activeBaseOnUrl.js}"></script>
+<script rel="stylesheet" th:src="@{/frontendStyle/js/pagination.js}"></script>
+<script rel="stylesheet" th:src="@{/frontendStyle/js/collapsebar.js}"></script>
+
+<!-- ionicons -->
+<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

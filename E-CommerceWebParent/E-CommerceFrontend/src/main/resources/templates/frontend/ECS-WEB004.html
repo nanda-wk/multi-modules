@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>product_details</title>
+    <!-- CSS Links -->
+    <th:block th:insert="~{/frontend/fragments::link}"/>
+</head>
+<body>
+<!--start header -->
+<th:block th:insert="~{/frontend/header::header}"/>
+<!-- End Header -->
+
+<!-- Hero Session -->
+<div class="container-fluid d-flex f-high" id="product_detail">
+    <div class="h-100 m-auto">
+        <div class="card ">
+            <div class="row  h-100 m-3 justify-content-around align-items-center">
+                <div class="">
+                    <img alt="Graphics Card" class="about-img img img-fluid p-5" src="img/graphic-card.jpg">
+                </div>
+                <div class="text-box m-5">
+                    <div class="card-body p-5">
+                        <h5 class="card-title font-weight-bold">About Our Shop</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+                            adipisci similique beatae, iure nostrum autem alias maxime laborum officiis quasi impedit,
+                            repellat ducimus ipsa doloribus. Laboriosam ad eveniet quo reiciendis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end hero session -->
+<!-- footer -->
+<th:block th:insert="~{/frontend/footer::footer}"/>
+<!-- End Footer -->
+
+<!-- JavaScript Link -->
+<th:block th:insert="~{/frontend/fragments::body/script}"/>
+</body>
+</html>

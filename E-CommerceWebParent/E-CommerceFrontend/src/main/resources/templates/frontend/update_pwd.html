@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update pwd</title>
+</head>
+<body>
+<form method="post" th:action="@{/reset-password}">
+    <h4>[[error]]</h4>
+    <input name="token" th:value="${token}" type="hidden">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password">
+    <label for="confirm">Confirm</label>
+    <input id="confirm" name="confirm" type="password">
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

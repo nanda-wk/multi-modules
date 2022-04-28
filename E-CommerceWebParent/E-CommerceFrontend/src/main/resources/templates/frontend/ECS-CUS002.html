@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Register</title>
+    <!-- CSS Links -->
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/form.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/reg.css}">
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.min.js}"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.slim.min.js}"></script>
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/bootstrap/js/bootstrap.min.js}"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+          integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script rel="stylesheet" th:src="@{/frontendStyle/js/reg.js}"></script>
+</head>
+<body>
+<!--start header -->
+<th:block th:insert="~{/frontend/header::header}"/>
+<!-- End Header -->
+
+<!-- Register Form -->
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <img alt="illustration" class="img-fluid mb-3 d-none d-md-block"
+                 th:src="@{/frontendStyle/img/illustration.svg}">
+            <h1>Create an Account</h1>
+        </div>
+
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form method="post" th:action="@{/add-customer}" th:object="${form}">
+                <div class="row">
+                    <!-- First Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="firstName"
+                               placeholder="First Name" th:field="*{firstName}"
+                               type="text">
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="lastName"
+                               placeholder="Last Name" th:field="*{lastName}"
+                               type="text">
+                    </div>
+
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="UserName"
+                               placeholder="Username" th:field="*{username}"
+                               type="text">
+
+                    </div>
+
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-phone-square text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="PhoneNumber"
+                               placeholder="Phone Number" th:field="*{phone}"
+                               type="text">
+                    </div>
+
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-calendar text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="dob"
+                               placeholder="Date of Birth" th:field="*{dob}"
+                               type="date">
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <select class="form-control bg-white border-md" id="gender" th:field="*{gender}">
+                            <option value="Gender">Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="email"
+                               placeholder="Email Address" th:field="*{email}"
+                               type="email">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="password"
+                               placeholder="Password" th:field="*{password}"
+                               type="password">
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="passwordConfirmation"
+                               placeholder="Confirm Password"
+                               th:field="*{confirm}" type="password">
+                    </div>
+
+                    <div class="input-group col-lg-4 mb-4">
+
+                        <select class="form-control bg-white border-md" id="region" th:field="*{region}">
+                            <option th:each="r:${regionList}" th:value="${r.id}">[[${r.name}]]</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group col-lg-4 mb-4">
+                        <select class="form-control bg-white  border-md" id="city" th:field="*{city}">
+                            <option th:each="c:${cityList}" th:value="${c.id}">[[${c.name}]]</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group col-lg-4 mb-4">
+                        <select class="form-control  bg-white border-md" id="township" th:field="*{township}">
+                            <option th:each="t:${townshipList}" th:value="${t.id}">[[${t.name}]]</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-address-card text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="address1"
+                               placeholder="Address1" th:field="*{address1}"
+                               type="text">
+                    </div>
+
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-address-card text-muted"></i>
+                            </span>
+                        </div>
+                        <input class="form-control bg-white border-left-0 border-md" id="address2"
+                               placeholder="Address2" th:field="*{address2}"
+                               type="text">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button class="btn btn-primary btn-block py-2" type="submit">
+                            <span class="font-weight-bold">Create your account</span>
+                        </button>
+                    </div>
+
+                    <!-- Divider Text -->
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                        <div class="border-bottom w-100 ml-5"></div>
+                        <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                        <div class="border-bottom w-100 mr-5"></div>
+                    </div>
+
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold">Already Registered?
+                            <a class="text-primary ml-2" th:href="@{/login}">Login</a>
+                        </p>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<th:block th:insert="~{/frontend/footer::footer}"/>
+<!-- End Footer -->
+<script th:src="@{/frontendStyle/js/activeBaseOnUrl.js}"></script>
+
+</body>
+</html>

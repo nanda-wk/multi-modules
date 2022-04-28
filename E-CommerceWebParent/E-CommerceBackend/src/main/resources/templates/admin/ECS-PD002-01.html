@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>Update Product</title>
+
+    <!-- CSS Links -->
+    <th:block th:insert="~{/admin/fragments::link}"/>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="~{/admin/fragments::theSidebar}"/>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <th:block th:insert="~{/admin/fragments::theNavbar}"/>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Content Row -->
+                <div class="row justify-content-center">
+                    <div class="p-3 card">
+                        <div class="card-header mb-4">
+                            <h2>Update Product</h2>
+                        </div>
+                        <div class="card-body">
+                            <form
+                                    enctype="multipart/form-data"
+                                    method="post"
+                                    th:action="@{/admin/update-product(id=${form.id})}"
+                                    th:object="${form}"
+                            >
+                                <input name="" th:field="*{id}" type="hidden"/>
+                                <div class="form-group">
+                                    <label class="form-label" for="productName"
+                                    >Product Name <span class="text-danger">*</span></label
+                                    >
+                                    <input
+                                            class="form-control"
+                                            id="productName"
+                                            th:field="*{productName}"
+                                            type="text"
+                                    />
+                                    <!-- error message here -->
+                                    <span
+                                            class="text-danger"
+                                            th:errors="*{productName}"
+                                            th:if="${#fields.hasErrors('productName')}"
+                                    >
+                                            </span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="productDescription"
+                                    >Product Description</label
+                                    >
+                                    <textarea
+                                            class="form-control"
+                                            id="productDescription"
+                                            rows="3"
+                                            th:field="*{productDescritpion}"
+                                            type="text"
+                                    ></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3 form-group">
+                                        <label class="form-label" for="brand"
+                                        >Brand<span class="text-danger">*</span></label
+                                        ><br/>
+                                        <select
+                                                class="form-control selectpicker"
+                                                id="brand"
+                                                th:field="*{brand}"
+                                        >
+                                            <option
+                                                    th:each="item:${brandList}"
+                                                    th:text="${item.brandName}"
+                                                    th:value="${item.id}"
+                                            ></option>
+                                        </select>
+                                    </div>
+                                    <div class="col mb-3 form-group">
+                                        <label class="form-label" for="category"
+                                        >Category<span class="text-danger">*</span></label
+                                        ><br/>
+                                        <select
+                                                class="form-control selectpicker"
+                                                id="category"
+                                                th:field="*{category}"
+                                        >
+                                            <option
+                                                    th:each="item:${categoryList}"
+                                                    th:text="${item.categoryName}"
+                                                    th:value="${item.id}"
+                                            ></option>
+                                        </select>
+                                    </div>
+                                    <div class="col mb-3 form-group">
+                                        <label class="form-label" for="subCategory"
+                                        >Sub-Category<span class="text-danger">*</span></label
+                                        ><br/>
+                                        <select
+                                                class="form-control selectpicker"
+                                                id="subCategory"
+                                                onchange="subCategoryChange(this)"
+                                                th:field="*{subCategory}"
+                                        >
+                                            <option
+                                                    th:each="item:${subList}"
+                                                    th:text="${item.subCategoryName}"
+                                                    th:value="${item.id}"
+                                            ></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label class="form-label" for="price"
+                                        >Price<span class="text-danger">*</span></label
+                                        >
+                                        <input
+                                                class="form-control"
+                                                id="price"
+                                                placeholder="Ks"
+                                                th:field="*{price}"
+                                                type="number"
+                                        />
+                                        <!-- error message here -->
+                                        <span
+                                                class="text-danger"
+                                                th:errors="*{price}"
+                                                th:if="${#fields.hasErrors('price')}"
+                                        >
+                                                </span>
+                                    </div>
+                                    <div class="col mb-3">
+                                        <label class="form-label" for="discount"
+                                        >Discount<span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control" id="discount" th:field="*{discount}">
+                                            <option th:each="dis:${discountList}"
+                                                    th:text="${dis.discountName}" th:value="${dis.id}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col mb-3">
+                                        <label class="form-label" for="qty"
+                                        >Quantity<span class="text-danger">*</span>
+                                        </label>
+                                        <input
+                                                class="form-control"
+                                                id="qty"
+                                                placeholder="Qty"
+                                                th:field="*{quantity}"
+                                                type="number"
+                                        />
+                                        <!-- error message here -->
+                                        <span
+                                                class="text-danger"
+                                                th:errors="*{quantity}"
+                                                th:if="${#fields.hasErrors('quantity')}"
+                                        >
+                                                </span>
+                                    </div>
+                                </div>
+                                <hr class="sidebar-divider"/>
+                                <th:block th:each="detail, status:${form.productDetails}">
+                                    <input name="detailId" th:value="${detail.id}" type="hidden">
+                                    <hr class="sidebar-divider"/>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h6>Detail #[[${status.count}]]</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <label class="form-label" for="name1">Name</label>
+                                            <input
+                                                    class="form-control"
+                                                    id="name1"
+                                                    name="detailName"
+                                                    th:value="${detail.name}"
+                                                    type="text"
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label" for="value1">Value</label>
+                                            <input
+                                                    class="form-control"
+                                                    id="value1"
+                                                    name="detailValue"
+                                                    th:value="${detail.value}"
+                                                    type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${form.productDetails.size() == 0}">
+                                    <hr class="sidebar-divider"/>
+                                    <div class="row">
+                                        <input name="detailId" type="hidden" value="0"/>
+                                        <div class="col">
+                                            <h6>Detail #1</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <label class="form-label" for="name1">Name</label>
+                                            <input class="form-control" id="name1" name="detailName" type="text"/>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label" for="value1">Value</label>
+                                            <input
+                                                    class="form-control"
+                                                    id="value1"
+                                                    name="detailValue"
+                                                    type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                    <hr class="sidebar-divider"/>
+                                    <div class="row">
+                                        <input name="detailId" type="hidden" value="0"/>
+                                        <div class="col">
+                                            <h6>Detail #2</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <label class="form-label" for="name1">Name</label>
+                                            <input class="form-control" id="name1" name="detailName" type="text"/>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label" for="value1">Value</label>
+                                            <input
+                                                    class="form-control"
+                                                    id="value1"
+                                                    name="detailValue"
+                                                    type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                    <hr class="sidebar-divider"/>
+                                    <div class="row">
+                                        <input name="detailId" type="hidden" value="0"/>
+                                        <div class="col">
+                                            <h6>Detail #3</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <label class="form-label" for="name1">Name</label>
+                                            <input class="form-control" id="name1" name="detailName" type="text"/>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label" for="value1">Value</label>
+                                            <input
+                                                    class="form-control"
+                                                    id="value1"
+                                                    name="detailValue"
+                                                    type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <div class="form-group mt-3">
+                                    <div class="upload__box">
+                                        <div class="upload__btn-box">
+                                            <label class="upload__btn">
+                                                <p class="m-0">Upload images</p>
+                                                <input
+                                                        class="upload__inputfile"
+                                                        data-max_length="20"
+                                                        multiple
+                                                        th:field="*{productImages}"
+                                                        type="file"
+                                                /> </label
+                                            ><br/><span class="text-danger">[[${errorimg}]]</span>
+                                        </div>
+                                        <div class="upload__img-wrap"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button class="btn btn-info btn-block" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:insert="~{/admin/fragments::theFooter}"></footer>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Model -->
+<div th:insert="~{/admin/fragments::logoutmodel}"></div>
+
+<!-- JavaScript Link -->
+<th:block th:insert="~{/admin/fragments::body/script}"/>
+</body>
+</html>

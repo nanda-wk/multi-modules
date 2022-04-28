@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>User List</title>
+
+    <!-- CSS Links -->
+    <th:block th:insert="~{/admin/fragments::link}"/>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="~{/admin/fragments::theSidebar}"/>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <th:block th:insert="~{/admin/fragments::theNavbar}"/>
+
+            <!-- Begin Page Content -->
+            <!--            myint min khant-->
+            <div class="m-4 bg-light shadow-lg ">
+
+                <div class="container-fluid " style="color: black;">
+
+                    <th:block th:if="${form.id == null}">
+                        <form method="post" th:action="@{/admin/add-role}" th:object="${form}">
+                            <div class="row pt-5">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-sm-4 col-form-label col-form-label" for="role">Permission Type:</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control form-control" id="role" placeholder="Admin's Role"
+                                           th:field="*{roleName}" type="text">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{roleName}"
+                                          th:if="${#fields.hasErrors('roleName')}">
+                            </span><span class="text-danger">[[${error}]]</span>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-sm-4 col-form-label col-form-label"
+                                           for="description">Description:</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control form-control" id="description" placeholder="Description"
+                                           th:field="*{description}" type="text">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-info" type="submit">ADD</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+
+                    <th:block th:if="${form.id != null}">
+                        <form method="post" th:action="@{/admin/update-role(id=${form.id})}" th:object="${form}">
+                            <div class="row pt-5">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-sm-4 col-form-label col-form-label" for="role">Permission Type:</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control form-control" id="role" placeholder="Admin's Role"
+                                           th:field="*{roleName}" type="text">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{roleName}"
+                                          th:if="${#fields.hasErrors('roleName')}">
+                            </span><span class="text-danger">[[${error}]]</span>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-sm-4 col-form-label col-form-label"
+                                           for="description">Description:</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control form-control" id="description" placeholder="Description"
+                                           th:field="*{description}" type="text">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-info" type="submit">UPDATE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+
+                    <br><br>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Categories</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table cellspacing="0" class=" table table-bordered" id="dataTable"
+                                       width="100%">
+                                    <thead class="bg-dark text-white">
+                                    <tr>
+                                        <td class="action-button">#</td>
+                                        <td>Permission Type</td>
+                                        <td>Description</td>
+                                        <td class="w-25 text-center">Action</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item:${roleList}">
+                                        <td th:text="${itemStat.index + 1}"></td>
+                                        <td>[[${item.roleName}]]</td>
+                                        <td>[[${item.description}]]</td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info m-2"
+                                               th:href="@{/admin/update-role(id=${item.id})}"><i
+                                                    class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-danger m-2"
+                                               th:href="@{/admin/delete-role(id=${item.id})}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <th:block th:insert="~{/admin/fragments::theFooter}"/>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Model -->
+    <th:block th:insert="~{/admin/fragments::logoutmodel}"/>
+
+    <!-- JavaScript Link -->
+    <th:block th:insert="~{/admin/fragments::body/script}"/>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>Admin</title>
+
+    <!-- CSS Links -->
+    <th:block th:insert="~{/admin/fragments::link}"/>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="~{/admin/fragments::theSidebar}"/>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <th:block th:insert="~{/admin/fragments::theNavbar}"/>
+
+            <!-- Begin Page Content -->
+            <div class="m-4 bg-light shadow-lg ">
+                <div class="container-fluid">
+
+                    <th:block th:if="${form.id == null}">
+                        <form method="post" th:action="@{/admin/add-user}" th:object="${form}">
+                            <div class="row pt-5">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="bName">Name</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="bName" placeholder="Name" th:field="*{name}"
+                                           type="text">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{name}"
+                                          th:if="${#fields.hasErrors('name')}">
+                                    </span>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="uName">Username</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="uName" placeholder="User Name"
+                                           th:field="*{username}"
+                                           type="text">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{username}"
+                                          th:if="${#fields.hasErrors('username')}">
+                                    </span><span class="text-danger">[[${uerror}]]</span>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="bName">Permission</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <th:block th:each="role: ${roleList}">
+                                            <input class="mr-2 pr-2" id="bName" th:field="*{permission}"
+                                                   th:text="${role.roleName}" th:value="${role.id}" type="checkbox">
+                                        </th:block>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="pwd">Password</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="pwd" placeholder="Password" th:field="*{password}"
+                                           type="password">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{password}"
+                                          th:if="${#fields.hasErrors('password')}">
+                                    </span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="conf">Confirm Password</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="conf" placeholder="Confirm Password"
+                                           th:field="*{confirm}" type="password">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{confirm}"
+                                          th:if="${#fields.hasErrors('confirm')}">
+                                    </span><span class="text-danger">[[${error}]]</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-info" type="submit">ADD</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+
+                    <th:block th:if="${form.id != null}">
+                        <form method="post" th:action="@{/admin/update-user(id=${form.id})}" th:object="${form}">
+                            <div class="row pt-5">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="bName">Name</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="bName" placeholder="Name" th:field="*{name}"
+                                           type="text">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{name}"
+                                          th:if="${#fields.hasErrors('name')}">
+                                    </span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="uName">Username</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="uName" placeholder="User Name"
+                                           th:field="*{username}" readonly type="text">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{username}"
+                                          th:if="${#fields.hasErrors('username')}">
+                                    </span><span class="text-danger">[[${uerror}]]</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="bName">Permission</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <th:block th:each="role: ${roleList}">
+                                            <input id="bName" th:field="*{permission}" th:text="${role.roleName}"
+                                                   th:value="${role.id}" type="checkbox">
+                                        </th:block>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="pwd">Password</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="pwd" placeholder="Password" th:field="*{password}"
+                                           type="password">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{password}"
+                                          th:if="${#fields.hasErrors('password')}">
+                                    </span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-4" style="padding-left: 100px;">
+                                    <label class="col-form-label" for="conf">Confirm Password</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="conf" placeholder="Confirm Password"
+                                           th:field="*{confirm}" type="password">
+                                    <span class="text-danger text-center mb-3"
+                                          th:errors="*{confirm}"
+                                          th:if="${#fields.hasErrors('confirm')}">
+                                    </span><span class="text-danger">[[${error}]]</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-info" type="submit">UPDATE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+
+                    <!-- Role Table -->
+                    <br><br>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Users List</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                                    <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th class="action-button">#</th>
+                                        <th>Name</th>
+                                        <th>Username</th>
+                                        <th>Permission</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item:${userList}">
+                                        <td th:text="${itemStat.index + 1}"></td>
+                                        <td>[[${item.name}]]</td>
+                                        <td>[[${item.username}]]</td>
+                                        <td>
+                                            <th:block th:each="r:${item.roles}">
+                                                [[${r.roleName}]],
+                                            </th:block>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info m-2"
+                                               th:href="@{/admin/update-user(id=${item.id})}"><i
+                                                    class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-danger m-2"
+                                               th:href="@{/admin/delete-user(id=${item.id})}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- End of Page Content -->
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <th:block th:insert="~{/admin/fragments::theFooter}"/>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Model -->
+    <th:block th:insert="~{/admin/fragments::logoutmodel}"/>
+
+    <!-- JavaScript Link -->
+    <th:block th:insert="~{/admin/fragments::body/script}"/>
+</body>
+
+</html>

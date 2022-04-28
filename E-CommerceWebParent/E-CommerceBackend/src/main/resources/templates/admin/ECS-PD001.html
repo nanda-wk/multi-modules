@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <title>Products</title>
+
+        <!-- CSS Links -->
+        <th:block th:insert="~{/admin/fragments::link}"/>
+    </head>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <th:block th:insert="~{/admin/fragments::theSidebar}" />
+
+            <!-- Content Wrapper -->
+            <div class="d-flex flex-column" id="content-wrapper">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <th:block th:insert="~{/admin/fragments::theNavbar}"/>
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- DataTables Products List -->
+                        <div class="text-center">
+                            <h6 class="text-success">[[${success}]]</h6>
+                        </div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Products List</h6>
+                            </div>
+                            <div class="card-body">
+                                <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                                    <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th class="action-button">#</th>
+                                        <th>Product Name</th>
+                                        <th>Brand</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th class="w-25 text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item:${productList}">
+                                            <td th:text="${itemStat.index + 1}"></td>
+                                            <td>[[${item.productName}]]</td>
+                                            <td>[[${item.brand.brandName}]]</td>
+                                            <td>[[${item.category.categoryName}]]</td>
+                                            <td>[[${item.price}]] Ks</td>
+                                            <td>[[${item.quantity}]] Qty</td>
+                                            <td class="text-center">
+                                                <a class="btn btn-info m-2" href=""><i
+                                                        class="fas fa-info"></i></a>
+                                                <a
+                                                        class="btn btn-primary m-2"
+                                                        th:href="@{/admin/update-product(id=${item.id})}"
+                                                ><i class="fas fa-edit"></i>
+                                                </a>
+                                                <a
+                                                        class="btn btn-danger m-2"
+                                                        th:href="@{/admin/delete-product(id=${item.id})}"
+                                                ><i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <th:block th:insert="~{/admin/fragments::theFooter}" />
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Model -->
+        <th:block th:insert="~{/admin/fragments::logoutmodel}" />
+
+        <!-- JavaScript Link -->
+        <th:block th:insert="~{/admin/fragments::body/script}" />
+    </body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>E-Commerce</title>
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/form.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap.min.css}">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+          integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.min.js}"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/bootstrap/js/bootstrap.min.js}"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.slim.min.js}"></script>
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap-grid.min.css}">
+</head>
+<body>
+<!--start header -->
+<th:block th:insert="~{/frontend/header::header}"/>
+<!-- End Header -->
+
+<!-- start Body -->
+<!-- Modal for shopping cart-->
+<div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal fade" data-backdrop="static"
+     data-keyboard="false"
+     id="staticBackdrop" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-center modal-title" id="staticBackdropLabel">Shooping Cart</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true"><i class="bi bi-x"></i><!-- &times; --></span>
+                </button>
+            </div>
+            <form action="">
+                <div class="modal-body table-responsive">
+                    <table class="table table-borderless content-section">
+                        <thead class="">
+                        <tr class="d-table-row">
+                            <th class="d-table-cell"></th>
+                            <th class="d-table-cell col">Item</th>
+                            <th class="d-table-cell text-right">Price</th>
+                            <th class="d-table-cell text-center">Quentity</th>
+                            <th class="d-table-cell text-right">Total</th>
+                            <th class="d-table-cell"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="show-cart">
+
+                        </tbody>
+                    </table>
+                    <div class="cart-total">
+                        <div class="cart-total-title">Total $<span class="cart-total-price total-cart">0</span></div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="clear-cart btn btn-danger">Clear Cart</button>
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+                    <a class="btn btn-info" href="checkout.html" type="button">Check-out</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!--end modal -->
+
+<!-- start Body -->
+<!-- Carousel -->
+<div class="carousel slide" data-ride="carousel" id="demo">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+        <li class="first-clr active" data-slide-to="0" data-target="#demo"></li>
+        <li data-slide-to="1" data-target="#demo"></li>
+        <li data-slide-to="2" data-target="#demo"></li>
+    </ul>
+
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+        <div class="carousel-item c-1 active ">
+            <div class="h-100 d-flex align-items-sm-center">
+                <div class="d-md-flex justify-content-md-around align-content-md-center m-auto">
+                    <div class="px-5 m-auto text-center">
+                        <h2 class="first-clr mb-4 text-left">Welcome to our shop</h2>
+                        <p class="text-left">1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam cumque
+                            suscipit, <br>
+                            placeat vero animi nisi et recusandae quibusdam, magni sint voluptatum, doloremque <br>
+                            pariatur incidunt esse velit eaque cum nostrum ratione.</p>
+                    </div>
+                    <div class="mx-auto  text-sm-center ">
+                        <img alt="c1" class="img img-fluid mx-auto carousel-img " src="assets/img/pc-home.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item c-2">
+            <div class="h-100 d-flex align-items-sm-center">
+                <div class="d-md-flex justify-content-md-around align-content-md-center m-auto">
+                    <div class="px-5 m-auto text-center ">
+                        <h2 class="first-clr mb-4 text-left">Welcome to our shop</h2>
+                        <p class="text-left">2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam cumque
+                            suscipit, <br>
+                            placeat vero animi nisi et recusandae quibusdam, magni sint voluptatum, doloremque <br>
+                            pariatur incidunt esse velit eaque cum nostrum ratione.</p>
+                    </div>
+                    <div class="mx-auto text-sm-center position-relative">
+                        <img alt="c2" class="img img-fluid carousel-img mx-auto" src="assets/img/pc-home.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item c-3">
+            <div class="h-100 d-flex align-items-sm-center">
+                <div class="d-md-flex justify-content-md-around align-content-md-center m-auto">
+                    <div class="px-5 m-auto text-center ">
+                        <h2 class="first-clr mb-4 text-left">Welcome to our shop</h2>
+                        <p class="text-left">3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam cumque
+                            suscipit, <br>
+                            placeat vero animi nisi et recusandae quibusdam, magni sint voluptatum, doloremque <br>
+                            pariatur incidunt esse velit eaque cum nostrum ratione.</p>
+                    </div>
+                    <div class="mx-auto text-sm-center ">
+                        <img alt="c2" class="img img-fluid carousel-img mx-auto" src="assets/img/pc-home.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" data-slide="prev" href="#demo">
+        <ion-icon class="fs-ions" name="arrow-back"></ion-icon>
+    </a>
+    <a class="carousel-control-next" data-slide="next" href="#demo">
+        <ion-icon class="fs-ions" name="arrow-forward"></ion-icon>
+    </a>
+</div>
+
+<!-- end carousal -->
+<div class="container-fluid">
+    <!-- start  content-->
+    <main class="content p-4" id="content">
+        <div class="content-header ml-4 mb-5">
+            <h2 class="my-3 first-clr">WHY CHOOSE US</h2>
+            <h4 class="my-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae, a.</h4>
+        </div>
+        <div class="content-body">
+            <div class="service-cards">
+                <div class="card mrow-auto mb-2">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 my-auto text-center card-img float-left">
+                            <i class="m-auto content-fs fa-solid fa-truck-fast"></i>
+                        </div>
+                        <div class="col-md-8 float-left">
+                            <div class="card-body text-wrap">
+                                <h5 class="card-title first-clr">Fast Delivery</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mrow-auto mb-2">
+                    <div class="row no-gutters">
+                        <div class="col-md-4  my-auto text-center card-img float-left">
+                            <i class="fa-solid fa-hand-holding-dollar content-fs"></i>
+                        </div>
+                        <div class="col-md-8 float-left">
+                            <div class="card-body text-wrap">
+                                <h5 class="card-title first-clr">Cheap Price</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mrow-auto mb-2">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 my-auto text-center card-img float-left">
+                            <i class="fa-solid fa-shield content-fs"></i>
+                        </div>
+                        <div class="col-md-8 float-left">
+                            <div class="card-body text-wrap">
+                                <h5 class="card-title first-clr">Best Quality</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mrow-auto mb-2">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 my-auto text-center card-img float-left">
+                            <i class="fa-solid fa-gear content-fs"></i>
+                        </div>
+                        <div class="col-md-8 float-left">
+                            <div class="card-body text-wrap">
+                                <h5 class="card-title first-clr">Fast Delivery</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- end content -->
+        <!--start Graphics card banner -->
+        <div class="p-4" id="card-banner">
+
+            <h2 class="text-center first-clr mb-4">Graphics Cards</h2>
+            <div class="banner-cards p-3 ">
+
+                <div class="card mrow-auto">
+                    <div class="position-relative">
+                        <img alt="banner card" class="card-img-top img img-fluid"
+                             src="assets/img/pc-home.png">
+                    </div>
+                    <div class="card-body">
+
+                        <h5 class="card-title title-h">GeForce RTX 3070 Master 8G Graphics Card</h5>
+                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
+                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
+
+                        <div class="text-center">
+                            <a class="form__button" href="#">See more</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mrow-auto">
+                    <div class="position-relative">
+                        <img alt="" class="card-img-top img img-fluid" src="assets/img/pc-home.png">
+                    </div>
+                    <div class="card-body ">
+
+                        <h5 class="card-title title-h">GeForce RTX 3070 Master 8G Graphics Card</h5>
+                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
+                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
+
+                        <div class="text-center">
+                            <a class="form__button" href="#">See more</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mrow-auto">
+                    <div>
+                        <img alt="" class="card-img-top img img-fluid" src="assets/img/pc-home.png">
+                    </div>
+                    <div class="card-body">
+
+                        <h5 class="card-title title-h">MSI Gaming Geforce</h5>
+                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
+                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
+
+                        <div class="text-center">
+                            <a class="form__button" href="#">See more</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="position-relative">
+                        <img alt="" class="card-img-top img img-fluid" src="assets/img/pc-home.png">
+                    </div>
+                    <div class="card-body">
+
+                        <h5 class="card-title title-h">MSI Gaming Geforce</h5>
+                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
+                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
+
+                        <div class="text-center">
+                            <a class="form__button" href="#">See more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Graphics card banner -->
+    </main>
+</div>
+<!-- End body -->
+
+<!-- footer -->
+<th:block th:insert="~{/frontend/footer::footer}"/>
+<!-- End Footer -->
+
+<!-- add class in nav-link base on Url -->
+<script th:src="@{/frontendStyle/js/activeBaseOnUrl.js}"></script>
+
+<!-- JavaScript Link -->
+<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>forgot pwd</title>
+</head>
+<body>
+<form th:action="@{/forgot-password}" method="post">
+  <p style="color: green">[[message]]</p>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email">
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

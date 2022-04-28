@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>Region</title>
+
+    <!-- CSS Links -->
+    <th:block th:insert="~{/admin/fragments::link}"/>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="~{/admin/fragments::theSidebar}"/>
+    <!-- Begin Page Content -->
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <th:block th:insert="~{/admin/fragments::theNavbar}"/>
+
+            <!-- min khant frontend -->
+
+            <div class="m-4 bg-light shadow-lg ">
+
+                <div class="container-fluid " style="color: black;">
+                    <th:block th:if="${form.id != null }">
+                        <form enctype="multipart/form-data" method="post"
+                              th:action=" @{/admin/update-region/(id=${form.id})}" th:object="${form}">
+                            <div class="row pt-5">
+                                <div class="col-lg-4" style="padding-left: 150px;">
+                                    <label class="col-form-label" for="bName">Region</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="bName" placeholder="Region Name"
+                                           th:field="*{name}"
+                                           type="text">
+                                    <span class="text-danger" th:errors="*{name}"
+                                          th:if="${#fields.hasErrors('name')}">
+                                    </span><span class="text-danger">[[${error}]]</span>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-info" type="submit">UPDATE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+
+                    <th:block th:if="${form.id == null}">
+                        <form enctype="multipart/form-data" method="post"
+                              th:action="@{/admin/add-region/}" th:object="${form}">
+                            <div class="row pt-5">
+                                <div class="col-lg-4" style="padding-left: 150px;">
+                                    <label class="col-form-label" for="bName">Region</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="bName" placeholder="Region Name"
+                                           th:field="*{name}"
+                                           type="text">
+                                    <span class="text-danger" th:errors="*{name}"
+                                          th:if="${#fields.hasErrors('name')}">
+                                    </span><span class="text-danger">[[${error}]]</span>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row ">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-info" type="submit">ADD</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+                    <br><br>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Region List</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Region</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item:${regionList}">
+                                        <td th:text="${itemStat.index + 1}"></td>
+                                        <td>[[${item.name}]]</td>
+                                        <td class="text-center"><a
+                                                class="btn btn-info m-2"
+                                                th:href="@{/admin/update-region(id=${item.id})}"><i
+                                                class="fas fa-edit"></i></a><a
+                                                class="btn btn-danger m-2"
+                                                th:href="@{/admin/delete-region(id=${item.id})}"><i
+                                                class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <th:block th:insert="~{/admin/fragments::theFooter}"/>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Model -->
+<th:block th:insert="~{/admin/fragments::logoutmodel}"/>
+
+<!-- JavaScript Link -->
+<th:block th:insert="~{/admin/fragments::body/script}"/>
+</body>
+
+</html>
