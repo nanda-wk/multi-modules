@@ -1,19 +1,28 @@
 package com.teamyear.site.util;
 
 import com.teamyear.common.entity.Customer;
+import com.teamyear.site.security.CUSUserDetails;
+import com.teamyear.site.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class CustomerUtil {
 
-//    @Autowired
-//    private JavaMailSender mailSender;
+    @Autowired
+    private CustomerService customerService;
 
     public static String getSiteURL(HttpServletRequest request) {
         String siteURL = request.getRequestURL().toString();
@@ -111,6 +120,23 @@ public class CustomerUtil {
         mailSender.setJavaMailProperties(mailProperties);
 
         return mailSender;
+    }
+
+    public static Customer getAuthenticatedCustomer(HttpServletRequest request) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return null;
+        } else {
+            Object principal = request.getUserPrincipal();
+            CUSUserDetails userDetails = null;
+            if (principal instanceof UsernamePasswordAuthenticationToken) {
+                UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+                userDetails = (CUSUserDetails) token.getPrincipal();
+            }
+            assert userDetails != null;
+            return userDetails.getCustomer();
+        }
     }
 
 }

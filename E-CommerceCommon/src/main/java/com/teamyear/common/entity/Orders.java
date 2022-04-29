@@ -37,6 +37,14 @@ public class Orders {
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
+    public void adOrderDetails(Integer quantity, Double subtotal, Product product) {
+        this.orderDetails.add(new OrderDetail(quantity, subtotal, product, this));
+    }
+
+    public void adOrderDetails(Integer id, Integer quantity, Double subtotal, Product product) {
+        this.orderDetails.add(new OrderDetail(quantity, subtotal, product, this));
+    }
+
     public String getOrderId() {
         return orderId;
     }

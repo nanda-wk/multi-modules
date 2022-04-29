@@ -22,6 +22,11 @@
 <th:block th:insert="~{/frontend/header::header}"/>
 <!-- End Header -->
 
+<!-- Modal for shopping cart-->
+<div th:replace="/frontend/cartItem::cartItem">
+</div>
+<!--end modal -->
+
 <!-- start Hero content -->
 <div class="container-fluid" data-offset="0" data-spy="scroll" data-target="#nav-bar">
     <!-- Start Component -->
@@ -117,8 +122,11 @@
                     </div>
                     <hr>
                     <button class="btn btn-primary w-100 rounded-pill mb-2" type="submit">Apply filter</button>
-                    <a class="btn btn-info col rounded-pill text-white" th:href="@{/components}">Reset
-                    </a>
+                </form>
+                <form method="get" th:action="@{/components}">
+                    <button class="btn btn-info col rounded-pill text-white" type="submit">
+                        Reset
+                    </button>
                 </form>
             </div>
             <div class="col">
@@ -127,27 +135,37 @@
                         <div class="card-deck mr-0 flex-wrap align-items-start justify-content-start">
                             <th:block th:each="p:${productList}">
                                 <div class="card p-4">
-                                    <a class="text-decoration-none text-dark" href="product_details.html">
+                                    <a class="text-decoration-none text-dark" th:href="@{/product-detail(id=${p.id})}">
                                         <span class="item-discount" th:if="${p.discount.discountPercent != 0}">-[[${p.discount.discountPercent}]]%</span>
                                         <div class="card-image">
-                                            <img alt="graphics card" class="card-img-top" th:src="@{${p.img1}}"
+                                            <img alt="graphics card" class="card-img-top img-height shop-item-image"
+                                                 th:src="@{${p.img1}}"
                                                  title="graphics card">
                                         </div>
                                         <div class="card-body p-1">
-                                            <h5 class="card-title c-title-h">[[${p.productName}]]</h5>
+                                            <h5 class="shop-item-title card-title c-title-h">[[${p.productName}]]</h5>
                                             <p class="card-text m-0 c-text-h">[[${p.productDescritpion}]]</p>
                                             <div class="clearfix mt-1 c-currency-h">
                                                 <del class="float-left" th:if="${p.discount.discountPercent != 0}">
                                                     $[[${p.discountedPrice}]]
                                                 </del>
-                                                <span class="float-right">$[[${p.price}]]</span></div>
+                                                <span class="float-right shop-item-price">$[[${p.price}]]</span></div>
                                         </div>
                                     </a>
                                     <div class="clearfix">
-                                        <button class=" form__button add-to-cart-btn col" onclick="add_to_card()"
-                                                role="button"
-                                                type="button">Add to cart
-                                        </button>
+                                        <th:block th:if="${p.quantity == 0}">
+                                            <h5 class="text-center text-warning">Out Of Stock!</h5>
+                                        </th:block>
+                                        <th:block th:if="${p.quantity > 0}">
+                                            <button class=" form__button shop-item-button add-to-cart-btn add-to-cart col"
+                                                    role="button"
+                                                    th:data-id="${p.id}"
+                                                    th:data-imgsrc="@{${p.img1}}"
+                                                    th:data-name="${p.productName}"
+                                                    th:data-price="${p.discountedPrice()}"
+                                                    type="button">Add to cart
+                                            </button>
+                                        </th:block>
                                     </div>
                                 </div>
                             </th:block>
@@ -163,6 +181,13 @@
 <!-- footer -->
 <th:block th:insert="~{/frontend/footer::footer}"/>
 <!-- End Footer -->
+<script type="text/javascript">
+    contextPath = "[[@{/TeamYear}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+</script>
+
+<script th:src="@{/frontendStyle/js/script.js}"></script>
 <script th:src="@{/frontendStyle/js/activeBaseOnUrl.js}"></script>
 <script rel="stylesheet" th:src="@{/frontendStyle/js/pagination.js}"></script>
 <script rel="stylesheet" th:src="@{/frontendStyle/js/collapsebar.js}"></script>

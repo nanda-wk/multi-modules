@@ -61,4 +61,8 @@ public class CUSUserDetails implements UserDetails {
     public String getName() {
         return customer.getFullName();
     }
+
+    public String getEmail() {
+        return customer.getEmail();
+    }
 }

@@ -6,12 +6,16 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>product_details</title>
     <!-- CSS Links -->
-    <th:block th:insert="~{/frontend/fragments::link}"/>
 </head>
 <body>
 <!--start header -->
 <th:block th:insert="~{/frontend/header::header}"/>
 <!-- End Header -->
+
+<!-- Modal for shopping cart-->
+<div th:replace="/frontend/cartItem::cartItem">
+</div>
+<!--end modal -->
 
 <!-- Hero Session -->
 <div class="container-fluid d-flex f-high" id="product_detail">
@@ -39,6 +43,6 @@
 <!-- End Footer -->
 
 <!-- JavaScript Link -->
-<th:block th:insert="~{/frontend/fragments::body/script}"/>
+
 </body>
 </html>

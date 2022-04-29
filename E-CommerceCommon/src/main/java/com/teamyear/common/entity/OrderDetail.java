@@ -24,6 +24,24 @@ public class OrderDetail {
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     private Orders orders;
 
+    public OrderDetail() {
+    }
+
+    public OrderDetail(Integer quantity, Double subtotal, Product product, Orders orders) {
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.product = product;
+        this.orders = orders;
+    }
+
+    public OrderDetail(Integer id, Integer quantity, Double subtotal, Product product, Orders orders) {
+        this.id = id;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.product = product;
+        this.orders = orders;
+    }
+
     public Integer getId() {
         return id;
     }

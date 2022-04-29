@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/form.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap.min.css}">
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.min.js}"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.slim.min.js}"></script>
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/bootstrap/js/bootstrap.min.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!--
+      - custom css link
+    -->
+    <link href="style.css" rel="stylesheet">
+
+    <!--
+      - google font link
+    -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+            rel="stylesheet"/>
+</head>
+
+<body>
+<!--- main container -->
+
+<main class="container" id="checkout">
+
+    <h1 class="heading my-5">
+        <ion-icon name="cart-outline"></ion-icon>
+        Check-out
+    </h1>
+
+    <!--- checkout section-->
+    <form method="post" th:action="@{/place-order}" th:object="${form}">
+        <div class="row mb-5">
+            <section class="checkout col-md-6">
+                <div class="form-row">
+                    <input th:field="*{orderId}" type="hidden">
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input class="form-control" id="firstName" placeholder="First name"
+                               th:value="${customer.firstName}"
+                               type="text">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="lastName">LastName</label>
+                        <input class="form-control" id="lastName" placeholder="Last name"
+                               th:value="${customer.lastName}"
+                               type="text">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input class="form-control" id="email" placeholder="Example@gmail.com"
+                               th:value="${customer.email}"
+                               type="email">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="tel">Phone No</label>
+                        <input class="form-control" id="tel" name="tel" placeholder="Phone Number"
+                               th:value="${customer.phone}"
+                               type="tel">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="region" id="region">Region</label>
+                        <select aria-label="Default select example" class="form-select form-control">
+                            <option th:each="r:${regionList}" th:value="${r.id}">[[${r.name}]]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="city" id="city">City</label>
+                        <select aria-label="Default select example" class="form-select form-control">
+                            <option th:each="c:${cityList}" th:value="${c.id}">[[${c.name}]]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-label" for="city">Township</label>
+                        <select aria-label="Default select example" class="form-select form-control">
+                            <option th:each="t:${townshipList}" th:value="${t.id}">[[${t.name}]]</option>
+                        </select>
+                    </div>
+                    <div class="col form-group">
+                        <label class="form-label" for="address">Address</label>
+                        <input class=" form-control" id="address" placeholder=" " th:value="${customer.address}"
+                               type="text">
+                    </div>
+                </div>
+                <div class="payment-title">
+                    <h3>Payment</h3>
+                    <div class="form-group">
+                        <!-- <input id="COD" type="text" readonly value="Cash On Delivery" class="form-check-input position-relative ml-0"> -->
+                        <select aria-label="Default select example" class="form-select form-control"
+                                th:field="*{paymentMethod}">
+                            <option th:each="pm:${T(com.teamyear.common.entity.PaymentMethod).values()}"
+                                    th:value="${pm}">[[${pm}]]
+                            </option>
+                        </select>
+                        <!-- <label for="COD" class="form-check-label user-select-none">Cash On Delivery</label> -->
+                    </div>
+                </div>
+
+            </section>
+            <!--- cart section -->
+            <input type="hidden"/>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr class='d-table-row'>
+                        <th class="d-table-cell" scope="col"></th>
+                        <th class="d-table-cell col" scope="col">Item</th>
+                        <th class="text-right d-table-cell" scope="col">Price</th>
+                        <th class="text-right d-table-cell cart-quantity" scope="col">Quentity</th>
+                        <th class="text-right d-table-cell">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody class="checkout-cart">
+
+                    </tbody>
+                </table>
+                <div class="clearfix ml-auto">
+                    <button class="btn btn-primary float-right ml-2 mr-3 clear-cart" type="submit">Place Order</button>
+                    <a class="btn btn-info float-right ml-2 mr-4" th:href="@{/components}">Back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+<!--
+  - custom js link
+-->
+<!-- <script src="js/store.js"></script> -->
+
+<script th:src="@{/frontendStyle/js/script.js}"></script>
+
+<!--
+  - ionicon link
+-->
+<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
