@@ -88,7 +88,7 @@ public class AnnouncementController {
 
 	    @GetMapping("/update-announcement")
 	    public String updateAnnouncement(@RequestParam("id") Integer id, ModelMap model) {
-	        Announcement anm = anmService.findById(id);
+	        Announcement anm = anmService.findById(id).get();
 	        AnnouncementForm anmForm = new AnnouncementForm();
 	        anmForm.setId(anm.getId());
 	        anmForm.setAnmName(anm.getAnmName());
@@ -103,7 +103,7 @@ public class AnnouncementController {
 	            return "admin/ECS-ANM001";
 	        }
 
-	        Announcement anm = anmService.findById(id);
+	        Announcement anm = anmService.findById(id).get();
 
 	        if (!anm.getAnmName().equals(form.getAnmName())) {
 	            // brand name check
@@ -142,7 +142,7 @@ public class AnnouncementController {
 
 	    @GetMapping("/delete-announcement")
 	    public String deleteAnnouncement(@RequestParam("id") Integer id, RedirectAttributes ra) throws IOException {
-	        Announcement anm = anmService.findById(id);
+	        Announcement anm = anmService.findById(id).get();
 
 	        // delete path
 	        String delDir = "./images/AnnouncementImage/" + anm.getId();

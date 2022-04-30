@@ -68,26 +68,28 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-label" for="region" id="region">Region</label>
-                        <select aria-label="Default select example" class="form-select form-control">
+                        <select aria-label="Default select example" class="form-select form-control"
+                                th:field="*{region}">
                             <option th:each="r:${regionList}" th:value="${r.id}">[[${r.name}]]</option>
                         </select>
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-label" for="city" id="city">City</label>
-                        <select aria-label="Default select example" class="form-select form-control">
+                        <select aria-label="Default select example" class="form-select form-control" th:field="*{city}">
                             <option th:each="c:${cityList}" th:value="${c.id}">[[${c.name}]]</option>
                         </select>
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-label" for="city">Township</label>
-                        <select aria-label="Default select example" class="form-select form-control">
+                        <select aria-label="Default select example" class="form-select form-control"
+                                th:field="*{township}">
                             <option th:each="t:${townshipList}" th:value="${t.id}">[[${t.name}]]</option>
                         </select>
                     </div>
                     <div class="col form-group">
                         <label class="form-label" for="address">Address</label>
-                        <input class=" form-control" id="address" placeholder=" " th:value="${customer.address}"
-                               type="text">
+                        <input class=" form-control" id="address" name="address" placeholder=" "
+                               th:value="${customer.address}" type="text">
                     </div>
                 </div>
                 <div class="payment-title">

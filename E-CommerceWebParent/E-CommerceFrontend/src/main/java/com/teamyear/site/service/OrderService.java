@@ -32,4 +32,9 @@ public class OrderService {
     public List<Orders> findAll() {
         return orderRepository.findAll();
     }
+
+    @Query("select o from Orders o where o.customer = ?1 and o.orderId = ?2")
+    public Orders findByCustomerAndOrderId(Customer customer, String orderId) {
+        return orderRepository.findByCustomerAndOrderId(customer, orderId);
+    }
 }

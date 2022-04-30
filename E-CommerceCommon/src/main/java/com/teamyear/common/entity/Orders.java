@@ -2,6 +2,7 @@ package com.teamyear.common.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,22 @@ public class Orders {
     private PaymentMethod paymentMethod;
 
     @Column(name = "order_time")
-    private String orderTime;
+    private Date orderTime;
+
+    @ManyToOne
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
+    private Region region;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private City city;
+
+    @ManyToOne
+    @JoinColumn(name = "township_id", referencedColumnName = "id")
+    private Township township;
+
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "status")
     private Boolean status;
@@ -85,11 +101,11 @@ public class Orders {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getOrderTime() {
+    public Date getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(String orderTime) {
+    public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -115,5 +131,37 @@ public class Orders {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Township getTownship() {
+        return township;
+    }
+
+    public void setTownship(Township township) {
+        this.township = township;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

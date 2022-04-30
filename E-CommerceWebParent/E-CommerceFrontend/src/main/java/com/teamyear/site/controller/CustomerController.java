@@ -1,14 +1,8 @@
 package com.teamyear.site.controller;
 
-import com.teamyear.common.entity.City;
-import com.teamyear.common.entity.Customer;
-import com.teamyear.common.entity.Region;
-import com.teamyear.common.entity.Township;
+import com.teamyear.common.entity.*;
 import com.teamyear.site.formmodel.CustomerForm;
-import com.teamyear.site.service.CityService;
-import com.teamyear.site.service.CustomerService;
-import com.teamyear.site.service.RegionService;
-import com.teamyear.site.service.TownshipService;
+import com.teamyear.site.service.*;
 import com.teamyear.site.util.CustomerUtil;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +36,9 @@ public class CustomerController {
 
     @Autowired
     private TownshipService townshipService;
+
+    @Autowired
+    private OrderService orderService;
 
     @ModelAttribute("regionList")
     public List<Region> regionList() {
@@ -104,6 +101,36 @@ public class CustomerController {
 
         model.addAttribute("success", "Register successful.");
         return "frontend/success";
+    }
+
+    @GetMapping("/profile")
+    public String customerProfile(HttpServletRequest request, ModelMap model) {
+
+        Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
+
+        model.addAttribute("customer", customer);
+        return "frontend/";
+    }
+
+    @GetMapping("/my-orders")
+    public String customerOrders(HttpServletRequest request, ModelMap model) {
+
+        Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
+        List<Orders> ordersList = orderService.findOrdersByCustomer(customer);
+
+        model.addAttribute("ordersList", ordersList);
+        return "frontend/";
+    }
+
+    @GetMapping("/order-details")
+    public String orderDetail(HttpServletRequest request, @RequestParam("id") String orderId, ModelMap model) {
+
+        Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
+
+        Orders orders = orderService.findByCustomerAndOrderId(customer, orderId);
+
+        model.addAttribute("orderDetails", orders);
+        return "frontend/";
     }
 
     @GetMapping("/verify")

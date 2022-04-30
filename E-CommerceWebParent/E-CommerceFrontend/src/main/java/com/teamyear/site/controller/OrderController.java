@@ -80,17 +80,9 @@ public class OrderController {
                              @RequestParam(name = "quantities") Integer[] quantities) {
         Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
 
-//        List<Integer> productIds = new ArrayList<>();
-//        productIds.add(Integer.valueOf(request.getParameter("productId")));
-//        List<Integer> quantities = new ArrayList<>();
-//        quantities.add(Integer.valueOf(request.getParameter("quantities")));
-
-
-        System.out.println("This is quantities size ::: " + productIds.length);
-        System.out.println("This is productIds size ::: " + quantities.length);
-
         Orders orders = new Orders();
         Product product;
+        Integer q = 0;
 
         List<Product> productList = new ArrayList<>();
 
@@ -98,26 +90,23 @@ public class OrderController {
         orders.setCustomer(customer);
         orders.setPaymentMethod(form.getPaymentMethod());
         orders.setTotal(Double.valueOf(request.getParameter("total")));
-//        for (Integer productId : productIds) {
-//            for (Integer quantity : quantities) {
-//                product = productService.findById(productId);
-//                product.setQuantity(product.getQuantity() - quantity);
-//                productService.save(product);
-//                orders.adOrderDetails(quantity, (product.discountedPrice() * quantity), product);
-//            }
-//        }
-        for (Integer productId : productIds) {
-            productList.add(productService.findById(productId));
-        }
-        for (Integer quantity : quantities) {
-            for (Product p : productList) {
-                p.setQuantity(p.getQuantity() - quantity);
-                productService.save(p);
-                orders.adOrderDetails(quantity, (p.discountedPrice() * quantity), p);
-            }
+        orders.setRegion(form.getRegion());
+        orders.setCity(form.getCity());
+        orders.setTownship(form.getTownship());
+        orders.setAddress(request.getParameter("address"));
+
+        for (int i = 0; i < productIds.length; i++) {
+            product = productService.findById(productIds[i]);
+            System.out.println("This is qqq::: " + quantities[i]);
+            product.setQuantity(product.getQuantity() - quantities[i]);
+            productService.save(product);
+            orders.adOrderDetails(quantities[i], (product.discountedPrice() * quantities[i]), product);
         }
         orderService.save(orders);
-        return "frontend/WEB-003";
+
+        return "frontend/ECS-WEB003";
     }
+
+
 
 }

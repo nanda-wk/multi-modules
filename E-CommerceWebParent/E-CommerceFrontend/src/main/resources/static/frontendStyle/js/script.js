@@ -8,13 +8,15 @@ var shoppingCart = (function () {
     // =============================
     cart = [];
 
+
     // Constructor
-    function Item(id, name, imgsrc, price, count) {
+    function Item(id, qty, name, imgsrc, price, count ) {
         this.id = id;
         this.name = name;
         this.imgsrc = imgsrc;
         this.price = price;
         this.count = count;
+        this.qty = qty;
     }
 
     // Save cart
@@ -38,19 +40,20 @@ var shoppingCart = (function () {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function (id, name, imgsrc, price, count) {
-        console.log("id " + id + "\n src " + imgsrc + "\n name " + name + "\n price " + price);
+    obj.addItemToCart = function (id, qty, name, imgsrc, price, count) {
+        console.log("ID:::" + id, "QTY:::" + qty);
         for (var item in cart) {
             if (cart[item].id === id) {
-                console.log("before count \n");
-                cart[item].count++;
-                console.log("after count \n");
+                if (cart[item].count >= qty) {
+                    cart[item].count = qty;
+                } else {
+                    cart[item].count++;
+                }
                 saveCart();
                 return;
             }
         }
-        console.log("no count");
-        var item = new Item(id, name, imgsrc, price, count);
+        var item = new Item(id, qty, name, imgsrc, price, count);
         cart.push(item);
         saveCart();
     }
@@ -154,7 +157,8 @@ $('.add-to-cart').click(function (event) {
     var imgsrc = $(this).data('imgsrc');
     var name = $(this).data('name');
     var price = Number($(this).data('price'));
-    shoppingCart.addItemToCart(id, name, imgsrc, price, 1);
+    var qty = $(this).data('qty')
+    shoppingCart.addItemToCart(id, qty, name, imgsrc, price, 1);
     displayCart();
 });
 
@@ -175,7 +179,7 @@ function displayCart() {
             + "<td class='text-right'>" + cartArray[i].price + "</td>"
             + "<td class='text-nowrap'><button class='minus-item btn btn-primary' data-id=" + cartArray[i].id + "><i class='bi bi-dash'></i></button>"
             + "<input readonly type='number' class='item-count cart-quantity-input' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"
-            + "<button class='plus-item btn btn-primary' data-id=" + cartArray[i].id + "><i class='bi bi-plus'></i></button></td>"
+            + "<button class='plus-item btn btn-primary' data-qty=" + cartArray[i].qty + " data-id=" + cartArray[i].id + "><i class='bi bi-plus'></i></button></td>"
             + " = "
             + "<td class='text-right'>" + cartArray[i].total + "</td>"
             + "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + "><i class='bi bi-trash3'></i></button></td>"
@@ -189,7 +193,9 @@ function displayCart() {
 function checkoutCart() {
     var cartArray = shoppingCart.listCart();
     var showItem = "";
+
     for (var i in cartArray) {
+
         showItem += "<tr class='d-table-row'>"
             + "<input type='hidden' name='productIds' value=" + cartArray[i].id + " />"
             + "<td class='d-table-cell position-relative'><img class='card-img-heigh' src=" + cartArray[i].imgsrc + "></td>"
@@ -198,6 +204,7 @@ function checkoutCart() {
             + "<td class='text-right d-table-cell'><input readonly class='form-control-plaintext cart-quantity-input' type='number' name='quantities' value='" + cartArray[i].count + "'/></td>"
             + "<td class='text-right d-table-cell'>" + cartArray[i].total + "</td>"
             + "</tr>";
+
     }
     tablefooter = "<tr class='d-table-row'>"
         + "<td class='d-table-cell' colspan='3'></td>"
@@ -228,7 +235,8 @@ $('.show-cart').on("click", ".minus-item", function (event) {
 // +1
 $('.show-cart').on("click", ".plus-item", function (event) {
     var id = $(this).data('id')
-    shoppingCart.addItemToCart(id);
+    var qty = $(this).data('qty')
+    shoppingCart.addItemToCart(id, qty);
     displayCart();
 })
 
@@ -239,6 +247,7 @@ $('.show-cart').on("change", ".item-count", function (event) {
     shoppingCart.setCountForItem(id, count);
     displayCart();
 });
+
 
 displayCart();
 checkoutCart();
