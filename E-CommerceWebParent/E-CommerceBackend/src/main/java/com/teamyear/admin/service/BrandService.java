@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,8 +29,8 @@ public class BrandService {
         return brandList;
     }
 
-    public Brand findById(Integer id) {
-        return brandRepository.findById(id).get();
+    public Optional<Brand> findById(Integer id) {
+        return brandRepository.findById(id);
     }
 
     public List<Brand> findByBrandName(String brandName) {

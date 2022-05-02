@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -26,8 +27,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findById(Integer id) {
-        return productRepository.findById(id).get();
+    public Optional<Product> findById(Integer id) {
+        return productRepository.findById(id);
     }
 
     public void deleteById(Integer id) {

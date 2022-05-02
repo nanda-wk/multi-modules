@@ -224,4 +224,12 @@ public class Customer {
         return firstName + " " + lastName;
     }
 
+    public String getFullAddress() {
+        if(addressOpl != null) {
+            return region.getName() + ", " + city.getName() + ", " + township.getName() + ", " + address;
+        } else {
+            return region.getName() + ", " + city.getName() + ", " + township.getName() + ", " + address + ", " + addressOpl;
+        }
+    }
+
 }

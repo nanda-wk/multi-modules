@@ -145,17 +145,18 @@
                                         <div class="card-body p-1">
                                             <h5 class="shop-item-title card-title c-title-h">[[${p.productName}]]</h5>
                                             <p class="card-text m-0 c-text-h">[[${p.productDescritpion}]]</p>
-                                            <div class="clearfix mt-1 c-currency-h">
-                                                <del class="float-left" th:if="${p.discount.discountPercent != 0}">
-                                                    $[[${p.discountedPrice}]]
-                                                </del>
-                                                <span class="float-right shop-item-price">$[[${p.price}]]</span></div>
+                                            <th:block th:if="${p.quantity > 0}">
+                                                <div class="clearfix mt-1 c-currency-h">
+                                                    <del class="float-left" th:if="${p.discount.discountPercent != 0}">
+                                                        $[[${p.discountedPrice}]]
+                                                    </del>
+                                                    <span class="float-right shop-item-price">$[[${p.price}]]</span>
+                                                </div>
+                                            </th:block>
                                         </div>
                                     </a>
                                     <div class="clearfix">
-                                        <th:block th:if="${p.quantity == 0}">
-                                            <h5 class="text-center text-warning">Out Of Stock!</h5>
-                                        </th:block>
+
                                         <th:block th:if="${p.quantity > 0}">
                                             <button class=" form__button shop-item-button add-to-cart-btn add-to-cart col"
                                                     role="button"
@@ -166,6 +167,9 @@
                                                     th:data-qty="${p.quantity}"
                                                     type="button">Add to cart
                                             </button>
+                                        </th:block>
+                                        <th:block th:if="${p.quantity == 0}">
+                                            <h5 class="text-center text-warning">Out Of Stock!</h5>
                                         </th:block>
                                     </div>
                                 </div>

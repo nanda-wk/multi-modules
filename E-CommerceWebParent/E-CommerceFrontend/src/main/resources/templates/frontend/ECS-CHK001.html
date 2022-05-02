@@ -91,18 +91,21 @@
                         <input class=" form-control" id="address" name="address" placeholder=" "
                                th:value="${customer.address}" type="text">
                     </div>
+                    <div class="col-12 form-group">
+                        <label class="form-label" for="note">Note</label>
+                        <textarea class="form-control" cols="" id="note" placeholder="Delivery Note." rows="3"
+                                  style="resize: none;" th:field="*{note}"></textarea>
+                    </div>
                 </div>
                 <div class="payment-title">
                     <h3>Payment</h3>
                     <div class="form-group">
-                        <!-- <input id="COD" type="text" readonly value="Cash On Delivery" class="form-check-input position-relative ml-0"> -->
                         <select aria-label="Default select example" class="form-select form-control"
                                 th:field="*{paymentMethod}">
                             <option th:each="pm:${T(com.teamyear.common.entity.PaymentMethod).values()}"
                                     th:value="${pm}">[[${pm}]]
                             </option>
                         </select>
-                        <!-- <label for="COD" class="form-check-label user-select-none">Cash On Delivery</label> -->
                     </div>
                 </div>
 

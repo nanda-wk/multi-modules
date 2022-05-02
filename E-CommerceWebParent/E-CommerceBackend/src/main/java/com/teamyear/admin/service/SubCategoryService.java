@@ -2,6 +2,7 @@ package com.teamyear.admin.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.teamyear.admin.repository.SubCategoryRepository;
 import com.teamyear.common.entity.SubCategory;
@@ -27,8 +28,8 @@ public class SubCategoryService {
         return subCategoryList;
     }
 
-    public SubCategory findById(Integer id) {
-        return subCategoryRepository.findById(id).get();
+    public Optional<SubCategory> findById(Integer id) {
+        return subCategoryRepository.findById(id);
     }
 
     public void deleteById(Integer id) {

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>User Profile</title>
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/form.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap.min.css}">
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.min.js}"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container" id="edit-profile">
+    <h3 class="text-center my-5">Edit Profile</h3>
+    <form class="row g-3" th:action="@{/update-profile}" method="post" th:object="${form}">
+        <div class="col-md-6">
+            <label class="form-label" for="first_name">First Name</label>
+            <input class="form-control" id="first_name" placeholder="First Name" type="text" th:field="*{firstName}">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="last_name">Last Name</label>
+            <input class="form-control" id="last_name" placeholder="Last Name" type="text" th:field="*{lastName}">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="inputEmail">Email</label>
+            <input class="form-control" id="inputEmail" type="email" th:field="*{email}">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="MobileNumber">Mobile Number</label>
+            <input class="form-control" id="MobileNumber" type="text" th:field="*{phone}">
+        </div>
+
+        <div class="col-12">
+            <label class="form-label" for="inputAddress">Address</label>
+            <input class="form-control" id="inputAddress" placeholder="Address 1" type="text" th:field="*{address1}">
+        </div>
+        <div class="col-12">
+            <label class="form-label" for="inputAddress2">Address 2</label>
+            <input class="form-control" id="inputAddress2" placeholder="Address 2" type="text" th:field="*{address2}">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="inputCity">City</label>
+            <select class="form-select form-control" id="inputCity" th:field="*{city}">
+                <option th:each="c:${cityList}" th:value="${c.id}">[[${c.name}]]</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="inputTownship">Township</label>
+            <select class="form-select form-control" id="inputTownship" th:field="*{township}">
+                <option th:each="t:${townshipList}" th:value="${t.id}">[[${t.name}]]</option>
+            </select>
+        </div>
+
+        <div class="btn-group mt-4 ">
+            <a class="btn btn-info px-4 rounded mx-5" th:href="@{/profile}">Back</a>
+            <button class="btn btn-primary rounded mx-4" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

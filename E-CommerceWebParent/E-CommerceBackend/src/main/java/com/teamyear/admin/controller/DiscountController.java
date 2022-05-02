@@ -61,7 +61,7 @@ public class DiscountController {
 
     @GetMapping("/update-discount")
     public ModelAndView editDiscountForm(@RequestParam("id") Integer id) {
-        Discount doption = discountService.findById(id);
+        Discount doption = discountService.findById(id).get();
         DiscountForm form = new DiscountForm();
         form.setId(doption.getId());
         form.setDiscountName(doption.getDiscountName());
@@ -78,7 +78,7 @@ public class DiscountController {
             return "admin/ECS-DIS001";
         }
 
-        Discount doption = discountService.findById(dform.getId());
+        Discount doption = discountService.findById(dform.getId()).get();
         doption.setDiscountName(dform.getDiscountName());
         doption.setDiscountPercent(dform.getDiscountPercent());
 

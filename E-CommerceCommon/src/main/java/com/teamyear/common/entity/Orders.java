@@ -1,8 +1,8 @@
 package com.teamyear.common.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -163,5 +163,9 @@ public class Orders {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getFullAddress() {
+        return this.region.getName() + ", " + this.city.getName() + ", " + this.township.getName() + ", " + this.address;
     }
 }

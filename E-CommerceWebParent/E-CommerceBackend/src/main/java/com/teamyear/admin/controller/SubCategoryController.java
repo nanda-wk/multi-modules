@@ -71,7 +71,7 @@ public class SubCategoryController {
 
     @GetMapping("/update-sub-category")
     public String updateSubCategoryForm(@RequestParam("id") Integer id, ModelMap model) {
-        SubCategory subCategory = subCategoryService.findById(id);
+        SubCategory subCategory = subCategoryService.findById(id).get();
         SubCategoryForm form = new SubCategoryForm();
         form.setId(id);
         form.setSubCategoryName(subCategory.getSubCategoryName());
@@ -89,7 +89,7 @@ public class SubCategoryController {
             return "admin/ECS-SCAT001";
         }
 
-        SubCategory subCategory = subCategoryService.findById(id);
+        SubCategory subCategory = subCategoryService.findById(id).get();
 
         if (!subCategory.getSubCategoryName().equals(form.getSubCategoryName())) {
             List<SubCategory> subList = subCategoryService.findBySubCategoryName(form.getSubCategoryName());
@@ -109,7 +109,7 @@ public class SubCategoryController {
 
     @GetMapping("/delete-sub-category")
     public String deleteSubCategory(@RequestParam("id") Integer id, RedirectAttributes ra) {
-        SubCategory subCategory = subCategoryService.findById(id);
+        SubCategory subCategory = subCategoryService.findById(id).get();
         subCategoryService.deleteById(id);
         ra.addFlashAttribute("success", subCategory.getSubCategoryName() + " successfully deleted.");
         return "redirect:/admin/sub-category";

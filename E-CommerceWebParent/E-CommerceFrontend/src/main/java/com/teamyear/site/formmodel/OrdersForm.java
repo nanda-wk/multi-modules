@@ -24,4 +24,6 @@ public class OrdersForm {
 
     private Township township;
 
+    private String note;
+
 }

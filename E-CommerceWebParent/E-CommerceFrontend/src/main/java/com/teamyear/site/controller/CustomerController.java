@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -83,7 +83,7 @@ public class CustomerController {
         customer.setUsername(form.getUsername());
         customer.setPassword(form.getPassword());
         customer.setEmail(form.getEmail());
-        customer.setDob(Date.valueOf(form.getDob()));
+        customer.setDob(form.getDob());
         customer.setGender(form.getGender());
         customer.setPhone(form.getPhone());
         customer.setRole("Customer");
@@ -103,13 +103,58 @@ public class CustomerController {
         return "frontend/success";
     }
 
+    @GetMapping("/update-profile")
+    public String customerUpdate(HttpServletRequest request, ModelMap model) {
+        Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
+        CustomerForm form = new CustomerForm();
+
+        form.setFirstName(customer.getFirstName());
+        form.setLastName(customer.getLastName());
+        form.setEmail(customer.getEmail());
+        form.setDob(customer.getDob());
+//        form.setGender(customer.getGender());
+        form.setPhone(customer.getPhone());
+//        form.setRegion(customer.getRegion());
+        form.setCity(customer.getCity());
+        form.setTownship(customer.getTownship());
+        form.setAddress1(customer.getAddress());
+        form.setAddress2(customer.getAddressOpl());
+
+        model.addAttribute("form", form);
+        return "frontend/ECS-CUS003-01";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfile(HttpServletRequest request, @ModelAttribute("form") CustomerForm form, BindingResult br, RedirectAttributes ra) {
+//        if (br.hasErrors()) {
+//            return "frontend/ECS-CUS003-01";
+//        }
+        Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
+        customer.setFirstName(form.getFirstName());
+        customer.setLastName(form.getLastName());
+        customer.setEmail(form.getEmail());
+        customer.setDob(form.getDob());
+//        customer.setGender(form.getGender());
+        customer.setPhone(form.getPhone());
+//        customer.setRegion(form.getRegion());
+        customer.setCity(form.getCity());
+        customer.setTownship(form.getTownship());
+        customer.setAddress(form.getAddress1());
+        customer.setAddressOpl(form.getAddress2());
+
+        customerService.save(customer);
+
+        ra.addFlashAttribute("success", "Customer update successful.");
+        return "redirect:/profile";
+    }
+
     @GetMapping("/profile")
     public String customerProfile(HttpServletRequest request, ModelMap model) {
 
         Customer customer = CustomerUtil.getAuthenticatedCustomer(request);
 
         model.addAttribute("customer", customer);
-        return "frontend/";
+        return "frontend/ECS-CUS003";
     }
 
     @GetMapping("/my-orders")

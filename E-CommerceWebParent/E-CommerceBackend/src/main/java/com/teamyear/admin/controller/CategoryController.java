@@ -65,7 +65,7 @@ public class CategoryController {
 
     @GetMapping("/update-category")
     public ModelAndView editCategoryForm(@RequestParam("id") Integer id) {
-        Category coption = categoryService.findById(id);
+        Category coption = categoryService.findById(id).get();
         CategoryForm form = new CategoryForm();
         form.setId(coption.getId());
         form.setCategoryName(coption.getCategoryName());
@@ -82,7 +82,7 @@ public class CategoryController {
             return "admin/ECS-CAT001";
         }
 
-        Category coption = categoryService.findById(cform.getId());
+        Category coption = categoryService.findById(cform.getId()).get();
         coption.setCategoryName(cform.getCategoryName());
         coption.setCategoryDescription(cform.getCategoryDescritpion());
 

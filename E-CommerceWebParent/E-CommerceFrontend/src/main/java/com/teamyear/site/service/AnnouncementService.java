@@ -15,22 +15,6 @@ public class AnnouncementService {
 	@Autowired
 	private AnnouncementRepository anmRepository;
 
-	public void save(Announcement announcement) {
-		anmRepository.save(announcement);
-	}
-
-	public Announcement findById(Integer id) {
-		return anmRepository.findById(id).get();
-	}
-
-	public List<Announcement> findByAnnouncementName(String anmName) {
-		return anmRepository.findByAnnouncementName(anmName);
-	}
-
-	public void deleteById(Integer id) {
-		anmRepository.deleteById(id);
-	}
-
 	public List<Announcement> findAll() {
 		Sort sortAnmName = Sort.by("anmName").ascending();
 		List<Announcement> anmList = new ArrayList<>();

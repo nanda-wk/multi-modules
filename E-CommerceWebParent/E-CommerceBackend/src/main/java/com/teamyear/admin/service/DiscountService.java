@@ -2,6 +2,7 @@ package com.teamyear.admin.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.teamyear.admin.repository.DiscountRepository;
 import com.teamyear.common.entity.Discount;
@@ -30,8 +31,8 @@ public class DiscountService {
     	return discountRepository.findByDiscountName(discountName);
     }
 
-    public Discount findById(Integer id) {
-        return discountRepository.findById(id).get();
+    public Optional<Discount> findById(Integer id) {
+        return discountRepository.findById(id);
     }
 
     public void deleteById(Integer id) {

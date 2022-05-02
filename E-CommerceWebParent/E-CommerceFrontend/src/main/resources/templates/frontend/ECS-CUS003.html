@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>User Profile</title>
+    <link rel="stylesheet" th:href="@{/frontendStyle/css/form.css}">
+    <link rel="stylesheet" th:href="@{/frontendStyle/bootstrap/css/bootstrap.min.css}">
+    <script rel="stylesheet" th:src="@{/frontendStyle/jquery/jquery.min.js}"></script>
+    <script rel="stylesheet" th:src="@{/frontendStyle/bootstrap/js/bootstrap.min.js}"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .btn-group > a {
+            height: 35px;
+            width: 70px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" id="user-profile">
+    <div class="row surface">
+        <div class="col-md-3 sticky-top h-100" id="">
+            <div class="side-bar w-100">
+                <div class="display-name">
+                    <div><img alt="" class="img rounded-circle profile-img" th:src="@{/frontendStyle/img/avator.jpg}">
+                    </div>
+                    <h4 class="font-weight-light text-uppercase mb-0 text-center ml-1">[[${customer.fullName}]]</h4>
+                </div>
+
+                <a class="side-bar-item" href="user_profile.html">
+                    <div class="">
+                        <span><i class="bi bi-person"></i><label for="">Public Profile</label></span>
+                    </div>
+                </a>
+                <a class="side-bar-item" href="order.html">
+                    <div class="">
+                        <span><i class="bi bi-journal-arrow-up"></i><label>Order</label></span>
+                    </div>
+                </a>
+                <a class="side-bar-item" href="order_history.html">
+                    <div>
+                        <span><i class="bi bi-journal-text"></i><label for="">Order History</label></span>
+                    </div>
+                </a>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-9 h-100 profile-body">
+            <h3 class="p-5 text-center">Personal info</h3>
+            <div class="row profile-item">
+                <div class="col-4 label">Name</div>
+                <div class="col-8 info">[[${customer.fullName}]]</div>
+            </div>
+            <div class="row profile-item">
+                <div class="col-4 label">Username</div>
+                <div class="col-8 info">[[${customer.username}]]</div>
+            </div>
+            <div class="row profile-item">
+                <div class="col-4 label">Moible Number</div>
+                <div class="col-8 info">[[${customer.phone}]]</div>
+            </div>
+            <div class="row profile-item">
+                <div class="col-4 label">Email</div>
+                <div class="col-8 info">[[${customer.email}]]</div>
+            </div>
+            <div class="row profile-item">
+                <div class="col-4 label">Gender</div>
+                <div class="col-8 info">[[${customer.gender}]]</div>
+            </div>
+            <div class="row profile-item">
+                <div class="col-4 label">Address</div>
+                <div class="col-8 info">[[${customer.fullAddress}]]</div>
+            </div>
+            <div class="row profile-item">
+                <div class="col-4 label">DOB</div>
+                <div class="col-8 info">[[${customer.dob}]]</div>
+            </div>
+            <div class="btn-group mt-4">
+                <a class="btn btn-info mx-4 rounded" th:href="@{/}">back</a>
+                <a class="btn btn-primary mx-4 rounded" th:href="@{/update-profile(id=${customer.id})}">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

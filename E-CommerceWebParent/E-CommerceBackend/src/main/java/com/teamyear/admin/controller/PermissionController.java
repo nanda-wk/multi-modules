@@ -57,7 +57,7 @@ public class PermissionController {
     @GetMapping("/update-role")
     public String updateRoleForm(@RequestParam("id") Integer id, ModelMap model) {
 
-        Role role = roleService.findById(id);
+        Role role = roleService.findById(id).get();
         RoleForm form = new RoleForm();
         form.setId(role.getId());
         form.setRoleName(role.getRoleName());
@@ -69,7 +69,7 @@ public class PermissionController {
 
     @PostMapping("/update-role")
     public String updateRole(@RequestParam("id") Integer id, @ModelAttribute("form") RoleForm form, RedirectAttributes ra) {
-        Role role = roleService.findById(id);
+        Role role = roleService.findById(id).get();
 
         if (!role.getRoleName().equals(form.getRoleName())) {
             List<Role> rList = roleService.findByRoleName(form.getRoleName());

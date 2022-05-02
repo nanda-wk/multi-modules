@@ -1,6 +1,7 @@
 package com.teamyear.admin.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.teamyear.admin.repository.RoleRepository;
 import com.teamyear.common.entity.Role;
@@ -30,8 +31,8 @@ public class RoleService {
         return roleRepository.findByRoleName(roleName);
     }
 
-    public Role findById(Integer id) {
-        return roleRepository.findById(id).get();
+    public Optional<Role> findById(Integer id) {
+        return roleRepository.findById(id);
     }
 
 }

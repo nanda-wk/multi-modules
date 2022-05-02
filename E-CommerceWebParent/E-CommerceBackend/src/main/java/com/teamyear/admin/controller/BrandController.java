@@ -89,7 +89,7 @@ public class BrandController {
 
     @GetMapping("/update-brand")
     public String updateBrandForm(@RequestParam("id") Integer id, ModelMap model) {
-        Brand brand = brandService.findById(id);
+        Brand brand = brandService.findById(id).get();
         BrandForm brandForm = new BrandForm();
         brandForm.setId(brand.getId());
         brandForm.setBrandName(brand.getBrandName());
@@ -105,7 +105,7 @@ public class BrandController {
             return "admin/ECS-BRN001";
         }
 
-        Brand brand = brandService.findById(id);
+        Brand brand = brandService.findById(id).get();
 
         if (!brand.getBrandName().equals(form.getBrandName())) {
             // brand name check
@@ -155,7 +155,7 @@ public class BrandController {
 
     @GetMapping("/delete-brand")
     public String deleteBrand(@RequestParam("id") Integer id, RedirectAttributes ra) throws IOException {
-        Brand brand = brandService.findById(id);
+        Brand brand = brandService.findById(id).get();
 
         // delete path
         String delDir = "./images/BrandLogo/" + brand.getId();

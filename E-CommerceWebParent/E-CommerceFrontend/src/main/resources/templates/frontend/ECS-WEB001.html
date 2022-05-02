@@ -178,71 +178,25 @@
             <h2 class="text-center first-clr mb-4">Graphics Cards</h2>
             <div class="banner-cards p-3 ">
 
-                <div class="card mrow-auto">
-                    <div class="position-relative">
-                        <img alt="banner card" class="card-img-top img img-fluid"
-                             src="assets/img/pc-home.png">
-                    </div>
-                    <div class="card-body">
+                <th:block th:each="p:${productList}">
+                    <div class="card mrow-auto">
+                        <div class="position-relative">
+                            <img alt="banner card" class="card-img-top img img-fluid"
+                                 th:src="@{${p.img1}}">
+                        </div>
+                        <div class="card-body">
 
-                        <h5 class="card-title title-h">GeForce RTX 3070 Master 8G Graphics Card</h5>
-                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
-                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
+                            <h5 class="card-title title-h">[[${p.productName}]]</h5>
+                            <p class="card-text text-h">[[${p.productDescritpion}]]</p>
+                            <p class="text-center currency-h"><span class="first-clr">$</span>[[${p.price}]]</p>
 
-                        <div class="text-center">
-                            <a class="form__button" href="#">See more</a>
+                            <div class="text-center">
+                                <a class="form__button" th:href="@{/product-detail(id=${p.id})}">See more</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </th:block>
 
-                <div class="card mrow-auto">
-                    <div class="position-relative">
-                        <img alt="" class="card-img-top img img-fluid" src="assets/img/pc-home.png">
-                    </div>
-                    <div class="card-body ">
-
-                        <h5 class="card-title title-h">GeForce RTX 3070 Master 8G Graphics Card</h5>
-                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
-                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
-
-                        <div class="text-center">
-                            <a class="form__button" href="#">See more</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mrow-auto">
-                    <div>
-                        <img alt="" class="card-img-top img img-fluid" src="assets/img/pc-home.png">
-                    </div>
-                    <div class="card-body">
-
-                        <h5 class="card-title title-h">MSI Gaming Geforce</h5>
-                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
-                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
-
-                        <div class="text-center">
-                            <a class="form__button" href="#">See more</a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div class="position-relative">
-                        <img alt="" class="card-img-top img img-fluid" src="assets/img/pc-home.png">
-                    </div>
-                    <div class="card-body">
-
-                        <h5 class="card-title title-h">MSI Gaming Geforce</h5>
-                        <p class="card-text text-h">RTX 3060 12GB Lorem ipsum dolor, sit amet</p>
-                        <p class="text-center currency-h"><span class="first-clr">$</span> 899.99</p>
-
-                        <div class="text-center">
-                            <a class="form__button" href="#">See more</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!--End Graphics card banner -->

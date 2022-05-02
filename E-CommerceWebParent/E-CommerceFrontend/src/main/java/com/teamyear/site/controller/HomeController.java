@@ -1,6 +1,7 @@
 package com.teamyear.site.controller;
 
 import com.teamyear.common.entity.Announcement;
+import com.teamyear.common.entity.Product;
 import com.teamyear.site.service.AnnouncementService;
 import com.teamyear.site.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,9 @@ public class HomeController {
     @GetMapping("/")
     public String home(ModelMap model) {
         List<Announcement> aList = announcementService.findAll();
+        List<Product> productList = productService.findByThreeRow();
         model.addAttribute("anmList", aList);
+        model.addAttribute("productList", productList);
         return "frontend/ECS-WEB001";
     }
 

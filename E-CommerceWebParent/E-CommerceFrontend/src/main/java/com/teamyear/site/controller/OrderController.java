@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class OrderController {
             String orderId = String.format("ORDER#%09d", ordersList.size() + 1);
             orders.setOrderId(orderId);
         }
+        System.out.println("This is customer object ::: " + customer);
 
         model.addAttribute("customer", customer);
         model.addAttribute("form", orders);
@@ -89,11 +91,15 @@ public class OrderController {
         orders.setOrderId(form.getOrderId());
         orders.setCustomer(customer);
         orders.setPaymentMethod(form.getPaymentMethod());
+        orders.setOrderStatus(OrderStatus.PENDING);
+        orders.setStatus(true);
+        orders.setOrderTime(new Date(System.currentTimeMillis()));
         orders.setTotal(Double.valueOf(request.getParameter("total")));
         orders.setRegion(form.getRegion());
         orders.setCity(form.getCity());
         orders.setTownship(form.getTownship());
         orders.setAddress(request.getParameter("address"));
+        orders.setNote(form.getNote());
 
         for (int i = 0; i < productIds.length; i++) {
             product = productService.findById(productIds[i]);
@@ -106,7 +112,6 @@ public class OrderController {
 
         return "frontend/ECS-WEB003";
     }
-
 
 
 }

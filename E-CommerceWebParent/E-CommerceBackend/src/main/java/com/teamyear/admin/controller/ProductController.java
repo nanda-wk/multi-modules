@@ -116,7 +116,7 @@ public class ProductController {
 
     @GetMapping("/update-product")
     public String updateProductForm(@RequestParam("id") Integer id, ModelMap model) {
-        Product product = productService.findById(id);
+        Product product = productService.findById(id).get();
         ProductForm form = new ProductForm();
         form.setId(id);
         form.setProductName(product.getProductName());
@@ -145,7 +145,7 @@ public class ProductController {
             return "admin/ECS-PD002-01";
         }
 
-        Product product = productService.findById(id);
+        Product product = productService.findById(id).get();
         product.setId(id);
         product.setProductName(form.getProductName());
         product.setProductDescritpion(form.getProductDescritpion());
@@ -169,7 +169,7 @@ public class ProductController {
     @GetMapping("/delete-product")
     public String deleteProduct(@RequestParam("id") Integer id, RedirectAttributes ra) throws IOException {
 
-        Product product = productService.findById(id);
+        Product product = productService.findById(id).get();
 
         String delDir = "./images/ProductImg/" + product.getId();
         Path delPath = Paths.get(delDir);

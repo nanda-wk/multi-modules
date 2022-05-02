@@ -2,6 +2,7 @@ package com.teamyear.admin.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.teamyear.admin.repository.CategoryRepository;
 import com.teamyear.common.entity.Category;
@@ -31,8 +32,8 @@ public class CategoryService {
         return categoryRepository.findByCategoryName(categoryName);
     }
 
-    public Category findById(Integer id) {
-        return categoryRepository.findById(id).get();
+    public Optional<Category> findById(Integer id) {
+        return categoryRepository.findById(id);
     }
 
     public <S extends Category> S save(S entity) {

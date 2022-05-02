@@ -10,11 +10,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 
-import java.util.Optional;
-
 import static org.mockito.Mockito.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class AnnouncementServiceTest {

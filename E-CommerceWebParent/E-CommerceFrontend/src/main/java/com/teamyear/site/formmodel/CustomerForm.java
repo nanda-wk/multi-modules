@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -32,8 +33,7 @@ public class CustomerForm {
     @NotEmpty
     private String email;
 
-    @NotEmpty
-    private String dob;
+    private Date dob;
 
     @NotEmpty
     private String gender;

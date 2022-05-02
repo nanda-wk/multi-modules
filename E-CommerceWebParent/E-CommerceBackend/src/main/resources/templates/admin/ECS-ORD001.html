@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>Orders</title>
+
+    <!-- CSS Links -->
+    <th:block th:insert="~{/admin/fragments::link}"/>
+    <script th:src="@{/adminstyle/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/adminstyle/vendor/jquery/jquery.slim.min.js}"></script>
+
+    <style>
+        .datatable-status {
+            font-size: 0.9rem;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="~{/admin/fragments::theSidebar}"/>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <th:block th:insert="~{/admin/fragments::theNavbar}"/>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- DataTables Products List -->
+                <div class="text-center">
+                    <h6 class="text-success">[[${success}]]</h6>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Orders List</h6>
+                    </div>
+                    <div class="card-body">
+                        <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                            <thead class="bg-dark text-white">
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-rows">
+                            <tr th:each="item: ${ordersList}">
+                                <td th:text="${itemStat.index + 1}"></td>
+                                <td>[[${item.orderId}]]</td>
+                                <td>[[${item.customer.fullName}]]</td>
+                                <td>[[${item.total}]]</td>
+                                <td class="text-center">
+                                    <a class="datatable-status badge alert-info rounded-pill text-decoration-none"
+                                       data-toggle="modal"
+                                       href="#staticBackdrop" role="button" th:data-id="${item.orderId}">
+                                        [[${item.orderStatus}]]
+                                    </a>
+                                </td>
+                                <td>[[${item.orderTime}]]</td>
+                                <td><a class="alert-info rounded-pill text-decoration-none px-2"
+                                       th:href="@{/admin/order-detail(id=${item.orderId})}">Details</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!--    Modal    -->
+        <div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal fade" id="staticBackdrop"
+             tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Order Status</h5>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row" method="post" th:action="@{/admin/order}">
+                            <div class="col"><input class="form-control-plaintext" id="orderId" name="oId" readonly
+                                                    type="text" value=""></div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <select aria-label="Default select example" class="form-select form-control"
+                                            name="status">
+                                        <option th:each="pm:${T(com.teamyear.common.entity.OrderStatus).values()}"
+                                                th:value="${pm}">[[${pm}]]
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <th:block th:insert="~{/admin/fragments::theFooter}"/>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Model -->
+<th:block th:insert="~{/admin/fragments::logoutmodel}"/>
+
+<script>
+    $(document).on("click", ".datatable-status", function () {
+        var eventId = $(this).data('id');
+        $('#orderId').val(eventId);
+    });
+</script>
+<!-- JavaScript Link -->
+<th:block th:insert="~{/admin/fragments::body/script}"/>
+</body>
+</html>
